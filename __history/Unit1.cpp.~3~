@@ -1,0 +1,113 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+#include <stack.h>
+#include <vector>
+#include <math.h>
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+
+struct Points {
+	int X;
+	int Y;
+};
+
+int count = 0, Xdown, Ydown;
+
+Points point;
+
+vector<Points> points;
+
+double fact(double);
+Points calculateBFunc(double, vector<Points>);
+void drawCurve(vector<Points>, TPaintBox *);
+void Bezier(vector<Points>, TPaintBox*);
+
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner){
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Repaint1Click(TObject *Sender)
+{
+	PaintBox1->Repaint();
+	count = 0;
+	points.clear();
+}
+
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::PaintBox1Click(TObject *Sender)
+{
+	count++;
+	point.X = Xdown;
+	point.Y = Ydown;
+	points.push_back(point);
+	PaintBox1->Canvas->Ellipse(Xdown - 3, Ydown - 3, Xdown + 3, Ydown + 3);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::PaintBox1MouseDown(TObject *Sender, TMouseButton Button,
+      TShiftState Shift, int X, int Y)
+{
+	Xdown = X;
+	Ydown = Y;
+}
+
+void Bezier(vector<Points> sourcePoints, TPaintBox *box) {
+	vector<Points> finalPoints;
+	for (double t; t < 1; t+=0.01f)
+		finalPoints.push_back(calculateBFunc(t, sourcePoints));
+
+	drawCurve(finalPoints, box);
+}
+
+Points calculateBFunc(double t, vector<Points> srcPoints) {
+	double x = 0, y = 0;
+	Points tempPoints;
+	int n = srcPoints.size() - 1;
+	for (int i = 0; i <= n; i++) {
+		x += fact(n)/(fact(i)*fact(n-i)) * srcPoints.at(i).X * pow(t, i)
+										 * pow(1-t, n-i);
+		y += fact(n)/(fact(i)*fact(n-i)) * srcPoints.at(i).Y * pow(t, i)
+										 * pow(1-t, n-i);
+	}
+	tempPoints.X = (int)x;
+	tempPoints.Y = (int)y;
+
+	return tempPoints;
+}
+
+double fact(double arg) {
+	if (arg == 0) return 1;
+
+	double result = 1;
+	for (int i = 1; i <= arg; i++) {
+		result *= i;
+	}
+	return result;
+}
+
+void drawCurve(vector<Points> points, TPaintBox *box) {
+	for (int i = 1; i < points.size(); i++) {
+		int x1 = (int)points.at(i-1).X;
+		int y1 = (int)points.at(i-1).Y;
+		int x2 = (int)points.at(i).X;
+		int y2 = (int)points.at(i).Y;
+		box->Canvas->MoveTo(x1, y1);
+		box->Canvas->LineTo(x2, y2);
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+	Bezier(points, PaintBox1);
+}
+//---------------------------------------------------------------------------
+

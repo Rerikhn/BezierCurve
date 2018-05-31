@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2018.05.17 22:31:01.907.cpp,C:\Users\Nikita\Documents\Borland Studio Projects\Unit1.cpp=C:\Users\Nikita\Desktop\Bezier Curve\Unit1.cpp</Transaction>
+    <Transaction>2018.05.17 22:31:01.926.h,C:\Users\Nikita\Documents\Borland Studio Projects\Unit1.h=C:\Users\Nikita\Desktop\Bezier Curve\Unit1.h</Transaction>
+    <Transaction>2018.05.17 22:31:01.926.dfm,C:\Users\Nikita\Documents\Borland Studio Projects\Unit1.dfm=C:\Users\Nikita\Desktop\Bezier Curve\Unit1.dfm</Transaction>
+    <Transaction>2018.05.17 22:31:03.145.bdsproj,C:\Users\Nikita\Documents\Borland Studio Projects\Project1.bdsproj=C:\Users\Nikita\Desktop\Bezier Curve\Project1.bdsproj</Transaction>
+  </Transactions>
+</BorlandProject>
