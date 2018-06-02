@@ -73,9 +73,9 @@ Points calculateBFunc(double t, vector<Points> srcPoints) {
 	int n = srcPoints.size() - 1;
 	for (int i = 0; i <= n; i++) {
 		x += fact(n)/(fact(i)*fact(n-i)) * srcPoints.at(i).X * pow(t, i)
-										 * pow(1-t, n-i);
+						 * pow(1-t, n-i);
 		y += fact(n)/(fact(i)*fact(n-i)) * srcPoints.at(i).Y * pow(t, i)
-										 * pow(1-t, n-i);
+						 * pow(1-t, n-i);
 	}
 	tempPoints.X = (int)x;
 	tempPoints.Y = (int)y;
